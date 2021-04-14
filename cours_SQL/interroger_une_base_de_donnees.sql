@@ -1,5 +1,7 @@
 use sakila;
 
+### INTERROGATIONS AVANCEES ###
+
 # 1. Afficher tout les emprunt ayant été réalisé en 2006. Le mois doit être écrit en toute
 # lettre et le résultat doit s’afficher dans une seul colonne.
 
@@ -54,3 +56,49 @@ FROM category;
 
 SELECT REPLACE(first_name,'E','A')
 FROM actor;
+
+### LES JOINTURES ###
+
+# 1. Lister les 10 premiers films ainsi que leur langues.
+
+SELECT f.title, l.name
+FROM film as f
+JOIN language as l
+	ON f.language_id = l.language_id
+LIMIT 10;
+
+# 2. Afficher les films dans lesquels a joué « JENNIFER DAVIS » sorti en 2006.
+
+SELECT f.title, f.release_year
+FROM film as f
+JOIN film_actor as fa
+	ON f.film_id = fa.film_id
+JOIN actor as a
+	ON fa.actor_id = a.actor_id
+WHERE a.first_name = "JENNIFER" AND a.last_name = "DAVIS"  AND f.release_year = 2006;
+
+# Tous les acteurs de ANACONDA CONFESSIONS
+#SELECT a.first_name, a.last_name
+#FROM actor as a
+#JOIN film_actor as fa
+#	ON a.actor_id = fa.actor_id
+#JOIN film as f
+#	ON fa.film_id = f.film_id
+#WHERE f.title = "ANGElS LIFE";
+
+# 3. Affihcer le noms des clients ayant emprunté "ALABAMA DEVIL"
+
+SELECT c.last_name
+FROM customer as c
+JOIN rental as r
+	ON c.customer_id = r.customer_id
+JOIN inventory as i
+	ON r.inventory_id = i.inventory_id
+JOIN film as f
+	ON i.film_id = f.film_id
+WHERE f.title = "ALABAMA DEVIL";
+
+# 4. Afficher les films loués par des personnes habitant à "Woodrige"
+
+
+	
