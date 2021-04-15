@@ -5,7 +5,7 @@ use sakila;
 # 1. Afficher tout les emprunt ayant été réalisé en 2006. Le mois doit être écrit en toute
 # lettre et le résultat doit s’afficher dans une seul colonne.
 
-SELECT rental_id,MONTHNAME(rental_date)
+SELECT MONTHNAME(rental_date)
 FROM rental
 WHERE YEAR(rental_date) = 2006;
 
@@ -19,20 +19,21 @@ FROM rental;
 
 SELECT rental_id, DATE_FORMAT(rental_date, "%H:%i:%s %d/%m/%Y") as rental_date
 FROM rental
-WHERE HOUR(rental_date)<1;
+WHERE YEAR(rental_date) = 2005 AND HOUR(rental_date)<1;
 
-# 4. Afficher les emprunts réalisé entre le mois d’avril et le mois de mai. La liste doit être
-# trié du plus ancien au plus récent.
+# 4. Afficher les emprunts réalisés entre le mois d’avril et le mois de mai. La liste doit être
+# triée du plus ancien au plus récent.
 
 SELECT rental_id, DATE_FORMAT(rental_date, "%d/%m/%Y") as rental_date
 FROM rental
-WHERE MONTH(rental_date) = 4 OR MONTH(rental_date) = 5; 
+WHERE MONTH(rental_date) = 4 OR MONTH(rental_date) = 5
+ORDER BY rental_date ASC; 
 
-# 5. Lister les film dont le nom ne commence pas par le mot « Le ».
+# 5. Lister les film dont le nom ne commence pas par le mot «LE».
 
 SELECT title
 FROM film
-WHERE SUBSTRING(title,1,2) != "LE";
+WHERE SUBSTRING(title,1,2) != "LE"; # Aurait pu utiliser LEFT aussi
 
 # 6. Lister les films ayant la mention « PG 13 » ou « NC 17 ». Ajouter une colonne qui
 # affichera « oui » si « NC 17 » et « non » Sinon.
@@ -41,7 +42,7 @@ SELECT title, IF(rating= "NC-17", "oui", "non") as "NC-17 ?"
 FROM film
 WHERE rating = "PG-13" OR rating = "NC-17";
 
-# 7. Fournir la liste des catégorie qui commence par un ‘A’ ou un ‘C’. (Utiliser LEFT).
+# 7. Fournir la liste des catégories qui commencent par un ‘A’ ou un ‘C’. (Utiliser LEFT).
 
 SELECT name
 FROM category
@@ -52,7 +53,7 @@ WHERE LEFT(name,1) = "A" OR LEFT(name,1) = "C";
 SELECT LEFT(name,3) as "Trois première lettres"
 FROM category;
 
-# 9. Lister les premiers acteurs en remplaçant dans leur prenom les E par des A.
+# 9. Lister les premiers (first name ?) acteurs en remplaçant dans leur prenom les E par des A.
 
 SELECT REPLACE(first_name,'E','A')
 FROM actor;
@@ -67,9 +68,9 @@ JOIN language as l
 	ON f.language_id = l.language_id
 LIMIT 10;
 
-# 2. Afficher les films dans lesquels a joué « JENNIFER DAVIS » sorti en 2006.
+# 2. Afficher les films dans lesquels a joué « JENNIFER DAVIS » sortis en 2006.
 
-SELECT f.title, f.release_year
+SELECT f.title
 FROM film as f
 JOIN film_actor as fa
 	ON f.film_id = fa.film_id
@@ -77,6 +78,7 @@ JOIN actor as a
 	ON fa.actor_id = a.actor_id
 WHERE a.first_name = "JENNIFER" AND a.last_name = "DAVIS"  AND f.release_year = 2006;
 
+# petit essai
 # Tous les acteurs de ANACONDA CONFESSIONS
 #SELECT a.first_name, a.last_name
 #FROM actor as a
@@ -84,9 +86,9 @@ WHERE a.first_name = "JENNIFER" AND a.last_name = "DAVIS"  AND f.release_year = 
 #	ON a.actor_id = fa.actor_id
 #JOIN film as f
 #	ON fa.film_id = f.film_id
-#WHERE f.title = "ANGElS LIFE";
+#WHERE f.title = "ANACONDA CONFESSIONS";
 
-# 3. Afficher le noms des clients ayant emprunté "ALABAMA DEVIL"
+# 3. Afficher le nom des clients ayant emprunté "ALABAMA DEVIL"
 
 SELECT c.last_name
 FROM customer as c
@@ -114,16 +116,16 @@ JOIN city as ci
 	ON a.city_id = ci.city_id
 WHERE ci.city = "Woodrige";
 
-# 5. Quels sont les 10 films dont la durée  d'emprunt a été la plus courte
+# 5. Quels sont les 10 films dont la durée d'emprunt a été la plus courte
 
-SELECT f.title, TIMEDIFF(r.return_date, r.rental_date) as rental_duration
+SELECT f.title, TIMEDIFF(r.return_date, r.rental_date) as rent_duration
 FROM film as f
 JOIN inventory as i
 	ON f.film_id = i.film_id
 JOIN rental as r
 	ON i.inventory_id = r.inventory_id
 WHERE TIMEDIFF(r.return_date, r.rental_date) != ''
-ORDER BY rental_duration
+ORDER BY rent_duration
 LIMIT 10;
 
 # 6. Lister les films de la catégorie « Action » ordonnés par ordre alphabétique.
@@ -138,7 +140,7 @@ WHERE c.name = "ACTION";
 
 # 7. Quel sont les films dont la durée d'emprunt a été inférieure à 2 jours ?
 
-SELECT DISTINCT f.title, r.return_date, r.rental_date, TIMEDIFF(r.return_date, r.rental_date) as rental_duration
+SELECT DISTINCT f.title, r.return_date, r.rental_date, TIMEDIFF(r.return_date, r.rental_date) as rent_duration
 FROM film as f
 JOIN inventory as i
 	ON f.film_id = i.film_id
