@@ -86,7 +86,7 @@ WHERE a.first_name = "JENNIFER" AND a.last_name = "DAVIS"  AND f.release_year = 
 #	ON fa.film_id = f.film_id
 #WHERE f.title = "ANGElS LIFE";
 
-# 3. Affihcer le noms des clients ayant emprunté "ALABAMA DEVIL"
+# 3. Afficher le noms des clients ayant emprunté "ALABAMA DEVIL"
 
 SELECT c.last_name
 FROM customer as c
@@ -99,6 +99,53 @@ JOIN film as f
 WHERE f.title = "ALABAMA DEVIL";
 
 # 4. Afficher les films loués par des personnes habitant à "Woodrige"
+
+SELECT f.title
+FROM film as f
+JOIN inventory as i
+	ON f.film_id = i.film_id
+JOIN rental as r
+	ON i.inventory_id = r.inventory_id
+JOIN customer as c
+	ON r.customer_id = c.customer_id
+JOIN address as a
+	ON c.address_id = a.address_id
+JOIN city as ci
+	ON a.city_id = ci.city_id
+WHERE ci.city = "Woodrige";
+
+# 5. Quels sont les 10 films dont la durée  d'emprunt a été la plus courte
+
+SELECT f.title, TIMEDIFF(r.return_date, r.rental_date) as rental_duration
+FROM film as f
+JOIN inventory as i
+	ON f.film_id = i.film_id
+JOIN rental as r
+	ON i.inventory_id = r.inventory_id
+WHERE TIMEDIFF(r.return_date, r.rental_date) != ''
+ORDER BY rental_duration
+LIMIT 10;
+
+# 6. Lister les films de la catégorie « Action » ordonnés par ordre alphabétique.
+
+SELECT f.title, c.name
+FROM film as f
+JOIN film_category as fc
+	ON f.film_id = fc.film_id
+JOIN category as c
+	ON fc.category_id = c.category_id
+WHERE c.name = "ACTION";
+
+# 7. Quel sont les films dont la durée d'emprunt a été inférieure à 2 jours ?
+
+SELECT DISTINCT f.title, r.return_date, r.rental_date, TIMEDIFF(r.return_date, r.rental_date) as rental_duration
+FROM film as f
+JOIN inventory as i
+	ON f.film_id = i.film_id
+JOIN rental as r
+	ON i.inventory_id = r.inventory_id
+WHERE HOUR(TIMEDIFF(r.return_date, r.rental_date)) < 48
+ORDER BY TIMEDIFF(r.return_date, r.rental_date);
 
 
 	
