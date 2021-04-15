@@ -1,6 +1,8 @@
 use sakila;
 
-### INTERROGATIONS AVANCEES ###
+###_____________________________________________________________________________________________________###
+###_________________________________________ INTERROGATIONS AVANCEES ___________________________________###
+###_____________________________________________________________________________________________________###
 
 # 1. Afficher tout les emprunt ayant été réalisé en 2006. Le mois doit être écrit en toute
 # lettre et le résultat doit s’afficher dans une seul colonne.
@@ -58,7 +60,11 @@ FROM category;
 SELECT REPLACE(first_name,'E','A')
 FROM actor;
 
-### LES JOINTURES ###
+
+###_____________________________________________________________________________________________________###
+###______________________________________________ LES JOINTURES ________________________________________###
+###_____________________________________________________________________________________________________###
+
 
 # 1. Lister les 10 premiers films ainsi que leur langues.
 
@@ -149,7 +155,9 @@ JOIN rental as r
 WHERE HOUR(TIMEDIFF(r.return_date, r.rental_date)) < 48
 ORDER BY TIMEDIFF(r.return_date, r.rental_date);
 
-### MISE EN PRATIQUE AGR2GATION ###
+###_____________________________________________________________________________________________________###
+###_____________________________________ MISE EN PRATIQUE AGREGATION ___________________________________###
+###_____________________________________________________________________________________________________###
 
 # 1. Afficher le nombre de films dans lesquels a joué l'atceur "JOHNNY LOLLOBRIGIDA", regroupé par catégories
 
@@ -182,7 +190,7 @@ WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
 GROUP BY c.name
 HAVING count(f.title) > 3;
 
-# 3. Affihcer la durée moyenne d'emprunts des films par acteur
+# 3. Afficher la durée moyenne d'emprunts des films par acteur
 
 SELECT a.first_name, a.last_name, avg(timestampdiff(DAY, r.rental_date, r.return_date)) as duree_moyenne
 FROM actor as a
@@ -195,4 +203,14 @@ JOIN inventory as i
 JOIN rental as r
 	ON i.inventory_id = r.inventory_id
 GROUP BY a.actor_id;
-	
+
+# 4. L'argent total dépensé au vidéos club par chaque clients, classé par ordre décroissant.
+
+SELECT c.last_name, c.first_name, SUM(p.amount)
+FROM customer as c
+JOIN rental as r
+	ON c.customer_id = r.customer_id
+JOIN payment as p
+	ON r.rental_id = p.rental_id
+GROUP BY r.customer_id
+ORDER BY SUM(p.amount) DESC;

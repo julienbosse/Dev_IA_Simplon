@@ -45,3 +45,4 @@ JOIN rental as r
 GROUP BY f.title
 ORDER BY AVG(TIMESTAMPDIFF(DAY, r.rental_date, r.return_date)) DESC;
 
+
