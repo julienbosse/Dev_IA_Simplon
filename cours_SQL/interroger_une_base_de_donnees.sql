@@ -149,5 +149,50 @@ JOIN rental as r
 WHERE HOUR(TIMEDIFF(r.return_date, r.rental_date)) < 48
 ORDER BY TIMEDIFF(r.return_date, r.rental_date);
 
+### MISE EN PRATIQUE AGR2GATION ###
 
+# 1. Afficher le nombre de films dans lesquels a joué l'atceur "JOHNNY LOLLOBRIGIDA", regroupé par catégories
+
+SELECT count(f.title) as film_avec_JL, c.name as catégorie
+FROM film as f
+JOIN film_actor as fa
+	ON f.film_id = fa.film_id
+JOIN actor as a
+	ON fa.actor_id = a.actor_id
+JOIN film_category as fc
+	ON f.film_id = fc.film_id
+JOIN category as c
+	ON fc.category_id = c.category_id
+WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
+GROUP BY c.name;
+
+# 2. Ecrire la requête qui affiche les catégries dans lesquels "JOHNNY LOLLOBRIGIDA" totalise plus de 3 films.
+
+SELECT count(f.title) as film_avec_JL, c.name as catégorie
+FROM film as f
+JOIN film_actor as fa
+	ON f.film_id = fa.film_id
+JOIN actor as a
+	ON fa.actor_id = a.actor_id
+JOIN film_category as fc
+	ON f.film_id = fc.film_id
+JOIN category as c
+	ON fc.category_id = c.category_id
+WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
+GROUP BY c.name
+HAVING count(f.title) > 3;
+
+# 3. Affihcer la durée moyenne d'emprunts des films par acteur
+
+SELECT a.first_name, a.last_name, avg(timestampdiff(DAY, r.rental_date, r.return_date)) as duree_moyenne
+FROM actor as a
+JOIN film_actor as fa
+	ON a.actor_id = fa.actor_id
+JOIN film as f
+	ON fa.film_id = f.film_id
+JOIN inventory as i
+	ON f.film_id = i.film_id
+JOIN rental as r
+	ON i.inventory_id = r.inventory_id
+GROUP BY a.actor_id;
 	
