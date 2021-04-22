@@ -130,7 +130,7 @@ JOIN inventory as i
 	ON f.film_id = i.film_id
 JOIN rental as r
 	ON i.inventory_id = r.inventory_id
-WHERE TIMEDIFF(r.return_date, r.rental_date) != ''
+WHERE TIMEDIFF(r.return_date, r.rental_date) != ""
 ORDER BY rent_duration
 LIMIT 10;
 
@@ -192,7 +192,7 @@ HAVING count(f.title) > 3;
 
 # 3. Afficher la durée moyenne d'emprunts des films par acteur
 
-SELECT a.first_name, a.last_name, avg(timestampdiff(DAY, r.rental_date, r.return_date)) as duree_moyenne
+SELECT a.first_name, a.last_name, avg(timestampdiff(HOUR, r.rental_date, r.return_date)) as duree_moyenne
 FROM actor as a
 JOIN film_actor as fa
 	ON a.actor_id = fa.actor_id
@@ -202,7 +202,8 @@ JOIN inventory as i
 	ON f.film_id = i.film_id
 JOIN rental as r
 	ON i.inventory_id = r.inventory_id
-GROUP BY a.actor_id;
+GROUP BY a.actor_id
+ORDER BY duree_moyenne DESC;
 
 # 4. L'argent total dépensé au vidéos club par chaque clients, classé par ordre décroissant.
 
