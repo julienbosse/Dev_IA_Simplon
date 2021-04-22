@@ -201,6 +201,27 @@ AND f.title IN (
 		ON fa.actor_id = a.actor_id
 	WHERE a.first_name = "JOHNNY");
     
+    # Question 17 avec syntaxe différente
+    
+SELECT film_jenny.* 
+FROM 
+    (
+        SELECT film.*
+        FROM film
+        JOIN film_actor ON film.film_id = film_actor.film_id
+        JOIN actor ON film_actor.actor_id = actor.actor_id
+        WHERE actor.first_name = "JENNIFER"
+    ) AS film_jenny
+JOIN 
+    (
+        SELECT film.film_id
+        FROM film
+        JOIN film_actor ON film.film_id = film_actor.film_id
+        JOIN actor ON film_actor.actor_id = actor.actor_id
+        WHERE actor.first_name = "JOHNNY"
+    ) AS film_johnny
+ON film_jenny.film_id = film_johnny.film_id;
+    
 # 18. Quelles sont les 3 catégories les plus empruntées?
 
 SELECT c.name, count(c.name)
@@ -214,7 +235,7 @@ JOIN film_category as fc
 JOIN category as c
 	ON fc.category_id = c.category_id
 GROUP BY c.name
-ORDER BY count(c.name) DESC
+ORDER BY count(r.rental_id) DESC
 LIMIT 3;
 
 # 19. Quelles sont les 10 villes où on a fait le plus de locations?
