@@ -171,7 +171,7 @@ JOIN film_category as fc
 	ON f.film_id = fc.film_id
 JOIN category as c
 	ON fc.category_id = c.category_id
-WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
+WHERE a.last_name = "LOLLOBRIGIDA" AND a.first_name = "JOHNNY"
 GROUP BY c.name;
 
 # 2. Ecrire la requête qui affiche les catégries dans lesquels "JOHNNY LOLLOBRIGIDA" totalise plus de 3 films.
@@ -186,7 +186,7 @@ JOIN film_category as fc
 	ON f.film_id = fc.film_id
 JOIN category as c
 	ON fc.category_id = c.category_id
-WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
+WHERE a.last_name = "LOLLOBRIGIDA" AND a.first_name = "JOHNNY"
 GROUP BY c.name
 HAVING count(f.title) > 3;
 
