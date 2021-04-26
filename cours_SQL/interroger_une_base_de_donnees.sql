@@ -202,7 +202,7 @@ JOIN inventory as i
 	ON f.film_id = i.film_id
 JOIN rental as r
 	ON i.inventory_id = r.inventory_id
-GROUP BY a.actor_id
+GROUP BY a.actor_id -- groupé par la clé primaire donc ça va 
 ORDER BY duree_moyenne DESC;
 
 # 4. L'argent total dépensé au vidéos club par chaque clients, classé par ordre décroissant.
