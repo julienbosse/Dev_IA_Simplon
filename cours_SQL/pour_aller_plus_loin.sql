@@ -94,6 +94,20 @@ WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
 ORDER BY f.length DESC
 LIMIT 1;
 
+SELECT f.title as film_avec_JL, f.length
+FROM film as f
+JOIN film_actor as fa
+	ON f.film_id = fa.film_id
+JOIN actor as a
+	ON fa.actor_id = a.actor_id
+JOIN film_category as fc
+	ON f.film_id = fc.film_id
+JOIN category as c
+	ON fc.category_id = c.category_id
+WHERE a.last_name = "LOLLOBRIGIDA" AND a.last_name = "LOLLOBRIGIDA"
+ORDER BY f.length DESC
+LIMIT 1;
+
 # 8. Afficher le temps moyen de location du film "ACADEMY DINOSAUR"
 
 SELECT f.title, AVG(TIMESTAMPDIFF(DAY, r.rental_date, r.return_date)) as duree_moyenne
@@ -224,7 +238,7 @@ ON film_jenny.film_id = film_johnny.film_id;
     
 # 18. Quelles sont les 3 catégories les plus empruntées?
 
-SELECT c.name, count(c.name)
+SELECT c.name, count(r.rental_id)
 FROM rental as r
 JOIN inventory as i
 	ON r.inventory_id = i.inventory_id
@@ -242,10 +256,10 @@ LIMIT 3;
 
 SELECT c.city, count(r.rental_id)
 FROM rental as r
-JOIN staff as sta
-	ON r.staff_id = sta.staff_id
+JOIN inventory as i
+	ON r.inventory_id = i.inventory_id
 JOIN store as sto
-	ON sta.store_id = sto.store_id
+	ON i.store_id = sto.store_id
 JOIN address as a
 	ON sto.address_id = a.address_id
 JOIN city as c
