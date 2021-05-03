@@ -215,7 +215,7 @@ AND f.title IN (
 		ON fa.actor_id = a.actor_id
 	WHERE a.first_name = "JOHNNY");
     
-    # Question 17 avec syntaxe différente
+# Question 17 avec syntaxe différente
     
 SELECT film_jenny.* 
 FROM 
@@ -279,3 +279,22 @@ IN (
     FROM film_actor
 )
 GROUP BY a.actor_id;
+
+# 21. Afficher les titres des films ayant pour catégorie "Action", sauf ceux qui ne sont plus présents en inventaire
+
+SELECT f.title
+FROM film as f
+JOIN film_category as fc ON f.film_id = fc.film_id
+JOIN category as c ON fc.category_id = c.category_id
+WHERE c.name = "Action"
+AND f.film_id NOT IN (
+SELECT i.film_id
+FROM inventory as i);
+    
+SELECT *
+FROM film
+INNER JOIN film_category fc USING(film_id)
+INNER JOIN category c USING(category_id)
+WHERE c.name = 'Action' AND film_id NOT IN (SELECT film_id FROM inventory);
+
+    
