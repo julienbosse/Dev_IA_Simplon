@@ -171,7 +171,7 @@ JOIN film_category as fa
 	ON f.film_id = fa.film_id
 JOIN category as c
 	ON fa.category_id = c.category_id
-WHERE f.length > 160 AND c.name = "Action";
+WHERE f.length > 120 AND c.name = "Action";
 
 # 15. Afficher tous les utilisateurs ayant emprunté des films avec la mention NC-17.
 

@@ -142,7 +142,8 @@ JOIN film_category as fc
 	ON f.film_id = fc.film_id
 JOIN category as c
 	ON fc.category_id = c.category_id
-WHERE c.name = "ACTION";
+WHERE c.name = "ACTION"
+ORDER BY f.title;
 
 # 7. Quel sont les films dont la durée d'emprunt a été inférieure à 2 jours ?
 
