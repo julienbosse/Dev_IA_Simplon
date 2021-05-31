@@ -18,11 +18,9 @@
 --
 -- Table structure for table `carreer_plan`
 --
-DROP DATABASE sondage; 
 
-CREATE DATABASE sondage;
-
-USE sondage;
+CREATE DATABASE survey;
+USE survey;
 
 DROP TABLE IF EXISTS `carreer_plan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -113,7 +111,7 @@ DROP TABLE IF EXISTS `employment_status`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `employment_status` (
   `emp_id` int NOT NULL AUTO_INCREMENT,
-  `emp_status` varchar(50) DEFAULT NULL,
+  `emp_status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`emp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -127,7 +125,7 @@ DROP TABLE IF EXISTS `how_many_companies`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `how_many_companies` (
   `mcp_id` int NOT NULL AUTO_INCREMENT,
-  `mcp_many_companies` varchar(50) DEFAULT NULL,
+  `mcp_many_companies` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`mcp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -328,3 +326,6 @@ CREATE TABLE `task_performed` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2021-05-28 11:28:41
+
+use sondage;
+
