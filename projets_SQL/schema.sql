@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS `job`;
 /*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `job` (
   `job_id` int NOT NULL AUTO_INCREMENT,
-  `job_name` varchar(100) DEFAULT NULL,
+  `job_name` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`job_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -327,5 +327,9 @@ CREATE TABLE `task_performed` (
 
 -- Dump completed on 2021-05-28 11:28:41
 
-use sondage;
+use survey;
+SELECT * FROM sondage_item as si
+JOIN education as e
+	ON si.edu_id = e.edu_id
+WHERE e.edu_title = "Masters";
 
