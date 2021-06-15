@@ -1,0 +1,9 @@
+<!doctype html>
+<title>Hello from Flask</title>
+{% if nom %}
+  <h1>Salut {{ nom }}!</h1>
+  <h1>Il est {{ time_stamp }}!</h1>
+{% else %}
+  <h1>Hello, World!</h1>
+  <h1>Il est {{ time_stamp }}!</h1>
+{% endif %}
