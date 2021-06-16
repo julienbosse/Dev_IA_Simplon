@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "JeuDeCreatures",
+			"path": "../../JeuDeCreatures"
+		},
+		{
+			"name": "Brief_agile",
+			"path": "../../Brief_agile"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/home/simplon/anaconda3/bin/python"
+	}
+}
