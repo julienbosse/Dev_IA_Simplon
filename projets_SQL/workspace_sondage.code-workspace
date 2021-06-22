@@ -13,6 +13,7 @@
 		}
 	],
 	"settings": {
-		"python.pythonPath": "/home/simplon/anaconda3/bin/python"
+		"python.pythonPath": "/home/simplon/anaconda3/bin/python",
+		"jupyter.jupyterServerType": "local"
 	}
 }
