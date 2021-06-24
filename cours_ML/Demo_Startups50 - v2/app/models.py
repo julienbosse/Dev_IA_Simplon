@@ -4,15 +4,12 @@ from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-engine = create_engine('mysql+pymysql://rafik:simplon@localhost/startups50')
-
-
 def graphique():
 
     #data = pd.read_sql_query('select * from startups50', engine)
 
     data = pd.read_csv("app/static/50_Startups.csv", thousands=',')
+
     col_new = ['startup_id', 'RDSpend', 'Administration', 'MarketingSpend', 'State', 'Profit']
     col_old = data.columns
     for i in range(len(col_old)) :
@@ -21,7 +18,7 @@ def graphique():
     palette=sns.color_palette("Paired")
     sns.set_palette(palette)
 
-    plt.figure(figsize=[15,20])
+    plt.figure(figsize=[20,20])
     plt.gcf().subplots_adjust(wspace = 0.5, hspace = 0.5)
     
     plt.subplot(321)
