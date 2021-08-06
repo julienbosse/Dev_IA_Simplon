@@ -28,5 +28,5 @@ class InstagramBot:
         sleep(2)
         self.driver.find_element_by_xpath("//a[contains(@href,'/following')]")
 
-my_bot = InstagramBot('juliobosse','Roronoazoro8758')
+my_bot = InstagramBot('juliobosse','*********')
 my_bot.get_unfollowers()
