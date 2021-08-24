@@ -1,4 +1,5 @@
 import cv2 as cv
+import time
 
 face_cascade = cv.CascadeClassifier('donnees/Detection_de_visages/haarcascade_frontalface_default.xml')
 
@@ -6,7 +7,7 @@ cap = cv.VideoCapture(0)
 
 while True:
     success, img = cap.read()
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    gray = cv.cvtColor(img, cv.COLOR_RGB2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.1, 8)
 
     try:

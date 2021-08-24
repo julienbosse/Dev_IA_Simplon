@@ -18,8 +18,9 @@ service.start()
 # Configuration
 download_path = "/home/simplon/Documents/dataset_pokedex/"
 # Images
-words_to_search = ['bulbasaur','ivysaur','venusaur']
-suffixes=["pic","sprite","anime"]
+pokemon_list = json.load("pokemons.json")
+words_to_search = ['bulbasaur','charmander','squirtle']
+suffixes=["png","sprite","anime"]
 n = 50
 nb_to_download = list(map(int,np.ones(len(words_to_search))*n))
 
