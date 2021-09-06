@@ -2,7 +2,6 @@ import cv2 as cv
 import time
 
 face_cascade = cv.CascadeClassifier('donnees/Detection_de_visages/haarcascade_frontalface_default.xml')
-
 cap = cv.VideoCapture(0)
 
 while True:
