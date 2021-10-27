@@ -1,22 +1,25 @@
 import cv2 as cv
 import mediapipe as mp
-import time 
 import numpy as np
 
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture("./video.mp4")
 pTime = 0
 
 mpDraw = mp.solutions.drawing_utils
+
 mpFaceMesh = mp.solutions.face_mesh
-mpHands = mp.solutions.hands
 faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
+
+mpHands = mp.solutions.hands
 hands = mpHands.Hands(max_num_hands=4)
+
 drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
 
 while True:
     success, img = cap.read()
     imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
     results = faceMesh.process(imgRGB)
+    
     if results.multi_face_landmarks:
         if len(results.multi_face_landmarks)==1:
             for faceLms in results.multi_face_landmarks:
