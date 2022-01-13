@@ -4,3 +4,5 @@ venv
 venv/
 
 projets_ML/predict_accident/sql_credentials.json
+
+workspace_sondage.code-workspace
